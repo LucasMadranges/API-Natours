@@ -1,5 +1,4 @@
 const express = require("express");
-const fs = require("fs");
 
 const {
     getAllTours,
@@ -10,6 +9,7 @@ const {
     checkId,
     checkBody
 } = require('../controllers/tourController')
+
 const tourRouter = express.Router();
 
 tourRouter.param('id', checkId)

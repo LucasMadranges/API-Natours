@@ -5,10 +5,8 @@ dotenv.config({
     path: './.env'
 })
 
-console.log(process.env)
-
 // STARTING SERVER
-const port = 8000;
+const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`Listening on port ${port}...`);
 });

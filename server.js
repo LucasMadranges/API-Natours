@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const app = require('./app');
 const dotenv = require('dotenv')
+const {connect} = require("mongoose");
 
 dotenv.config({
     path: './.env'
@@ -8,10 +9,7 @@ dotenv.config({
 
 const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD)
 
-mongoose.connect(DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
+mongoose.connect(DB, {}).then(() => {
     console.log('DB connexion successfull');
 }).catch((error) => {
     console.log(`Error: ${error}`)
@@ -34,8 +32,15 @@ const tourSchema = new mongoose.Schema({
 })
 const Tour = mongoose.model('Tour', tourSchema);
 
+const testTour = new Tour({
+    name: 'The Park Camper',
+    price: 550,
+})
+
+testTour.save().then(doc => console.log(doc)).catch(error => console.log(error))
+
 // STARTING SERVER
 const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`Listening on port ${port}...`);
-});
+}); 
